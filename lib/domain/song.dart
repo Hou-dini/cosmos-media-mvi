@@ -9,16 +9,15 @@ class Song extends Media {
 
   Song({
     String? id,
-    required String ownerID,
-    required String sourceIdentifier,
+    required super.ownerID,
+    required super.sourceIdentifier,
     required String title,
     required String artist,
     required int durationMs,
   }) : _title = title,
        _artist = artist,
-       _durationMs = durationMs,
-       super(id: id, ownerID: ownerID, sourceIdentifier: sourceIdentifier);
-
+       _durationMs = durationMs;
+       
   @override
   String get title => _title;
 
