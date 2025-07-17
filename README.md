@@ -1,4 +1,4 @@
-# myapp
+# Cosmos Media
 
 A new Flutter project.
 
