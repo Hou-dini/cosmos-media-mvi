@@ -41,6 +41,12 @@ enum ErrorCode {
   dilCoordinatorInvalidConfigError,
   dilCoordinatorUnknownError,
 
+   // InterpretationStrategy errors
+  dilRetrievalStrategyAccessDeniedError,
+  dilRetrievalStrategyPathMissingError,
+  dilRetrievalStrategyAuthenticationError,
+  dilRetrievalStrategyUnknownError,
+
   // Service layer errors (for IMediaImportService example)
   serviceImportSetupError,
   serviceImportPostProcessingError,
