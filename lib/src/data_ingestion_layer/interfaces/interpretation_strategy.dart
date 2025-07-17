@@ -1,5 +1,5 @@
-import 'package:cosmos_media_mvi/utils.dart/detected_format_item.dart';
-import 'package:cosmos_media_mvi/utils.dart/interpreted_data_item.dart';
+import 'package:cosmos_media_mvi/src/data_ingestion_layer/dtos/detected_format_item.dart';
+import 'package:cosmos_media_mvi/src/data_ingestion_layer/dtos/interpreted_data_item.dart';
 
 /// Defines a contract for concrete strategy objects that encapsulate the
 /// algorithms for interpreting raw data of a specific [DataFormat] into

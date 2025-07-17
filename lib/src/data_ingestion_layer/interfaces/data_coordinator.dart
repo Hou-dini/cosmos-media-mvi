@@ -1,6 +1,6 @@
-import 'package:cosmos_media_mvi/domain/media.dart';
-import 'package:cosmos_media_mvi/utils.dart/dil_status_event.dart';
-import 'package:cosmos_media_mvi/utils.dart/import_source_config.dart';
+import 'package:cosmos_media_mvi/src/domain_layer/entities/media.dart';
+import 'package:cosmos_media_mvi/src/data_ingestion_layer/dtos/dil_status_event.dart';
+import 'package:cosmos_media_mvi/src/data_ingestion_layer/dtos/import_source_config.dart';
 
 /// Defines a contract for classes that orchestrate the complete pipeline for
 /// retrieving raw data, detecting its format, interpreting it, and transforming

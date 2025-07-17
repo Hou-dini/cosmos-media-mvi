@@ -1,5 +1,5 @@
 import 'media.dart';
-import 'media_type.dart';
+import '../../core/enums/media_type.dart';
 
 // Song Class (Concrete IMedia implementation for MVI)
 class Song extends Media {

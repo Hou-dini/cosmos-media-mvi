@@ -1,6 +1,6 @@
-import 'package:cosmos_media_mvi/data_ingestion/transformation_strategy.dart';
-import 'package:cosmos_media_mvi/domain/media_type.dart';
-import 'package:cosmos_media_mvi/utils.dart/data_format.dart';
+import 'package:cosmos_media_mvi/src/data_ingestion_layer/interfaces/transformation_strategy.dart';
+import 'package:cosmos_media_mvi/src/core/enums/media_type.dart';
+import 'package:cosmos_media_mvi/src/core/enums/data_format.dart';
 
 /// Defines a contract for creating instances of [TransformationStrategy].
 ///

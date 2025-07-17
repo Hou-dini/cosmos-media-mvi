@@ -1,4 +1,4 @@
-import 'package:cosmos_media_mvi/utils.dart/dil_status_event_type.dart';
+import 'package:cosmos_media_mvi/src/data_ingestion_layer/dtos/dil_status_event_type.dart';
 
 class DILStatusEvent {
   final DILStatusEventType type;

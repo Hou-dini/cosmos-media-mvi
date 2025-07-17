@@ -1,7 +1,7 @@
-import 'package:cosmos_media_mvi/domain/media_type.dart';
-import 'package:cosmos_media_mvi/utils.dart/raw_data_item.dart';
-import 'package:cosmos_media_mvi/utils.dart/resource_change_event.dart';
-import 'package:cosmos_media_mvi/utils.dart/resource_location_config.dart';
+import 'package:cosmos_media_mvi/src/core/enums/media_type.dart';
+import 'package:cosmos_media_mvi/src/data_ingestion_layer/dtos/raw_data_item.dart';
+import 'package:cosmos_media_mvi/src/data_ingestion_layer/dtos/resource_change_event.dart';
+import 'package:cosmos_media_mvi/src/data_ingestion_layer/dtos/resource_location_config.dart';
 
 /// Defines a contract for classes that interact with external systems to retrieve
 /// raw data and optionally monitor for changes in the external source.

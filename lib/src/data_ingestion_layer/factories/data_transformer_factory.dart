@@ -1,5 +1,5 @@
-import 'package:cosmos_media_mvi/data_ingestion/data_transformer.dart';
-import 'package:cosmos_media_mvi/utils.dart/import_source_type.dart';
+import 'package:cosmos_media_mvi/src/data_ingestion_layer/interfaces/data_transformer.dart';
+import 'package:cosmos_media_mvi/src/core/enums/import_source_type.dart';
 
 /// Defines a contract for creating instances of [DataTransformer].
 ///

@@ -1,4 +1,4 @@
-import 'data_format.dart';
+import '../../core/enums/data_format.dart';
 
 class DetectedFormatItem<RAW_DATA_TYPE> {
   final RAW_DATA_TYPE data; // The actual raw data payload

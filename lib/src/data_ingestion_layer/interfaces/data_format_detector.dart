@@ -1,5 +1,5 @@
-import 'package:cosmos_media_mvi/utils.dart/detected_format_item.dart';
-import 'package:cosmos_media_mvi/utils.dart/raw_data_item.dart';
+import 'package:cosmos_media_mvi/src/data_ingestion_layer/dtos/detected_format_item.dart';
+import 'package:cosmos_media_mvi/src/data_ingestion_layer/dtos/raw_data_item.dart';
 
 /// Defines a contract for classes that detect the specific data format of raw data.
 ///

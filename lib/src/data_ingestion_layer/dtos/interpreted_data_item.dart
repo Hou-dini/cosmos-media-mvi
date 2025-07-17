@@ -1,4 +1,4 @@
-import 'data_format.dart';
+import '../../core/enums/data_format.dart';
 
 class InterpretedDataItem {
   final Map<String, dynamic>

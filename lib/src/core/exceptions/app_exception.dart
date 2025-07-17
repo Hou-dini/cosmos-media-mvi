@@ -1,7 +1,7 @@
 // AppException Class
-import 'package:cosmos_media_mvi/utils.dart/error_code.dart';
-import 'package:cosmos_media_mvi/utils.dart/error_context_key.dart';
-import 'package:cosmos_media_mvi/utils.dart/log_level.dart';
+import 'package:cosmos_media_mvi/src/core/enums/error_code.dart';
+import 'package:cosmos_media_mvi/src/core/enums/error_context_key.dart';
+import 'package:cosmos_media_mvi/src/core/enums/log_level.dart';
 
 class AppException implements Exception {
   final ErrorCode errorCode;

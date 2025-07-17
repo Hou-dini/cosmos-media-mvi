@@ -1,4 +1,4 @@
-import 'package:cosmos_media_mvi/utils.dart/resource_change_event_type.dart';
+import 'package:cosmos_media_mvi/src/core/enums/resource_change_event_type.dart';
 
 class ResourceChangeEvent {
   final ResourceChangeType type;

@@ -1,6 +1,6 @@
-import 'package:cosmos_media_mvi/domain/media.dart';
-import 'package:cosmos_media_mvi/domain/media_type.dart';
-import 'package:cosmos_media_mvi/utils.dart/interpreted_data_item.dart';
+import 'package:cosmos_media_mvi/src/domain_layer/entities/media.dart';
+import 'package:cosmos_media_mvi/src/core/enums/media_type.dart';
+import 'package:cosmos_media_mvi/src/data_ingestion_layer/dtos/interpreted_data_item.dart';
 
 /// Defines a contract for classes that perform transformation operations.
 ///

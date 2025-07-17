@@ -1,6 +1,6 @@
-import 'package:cosmos_media_mvi/domain/media_type.dart';
-import 'package:cosmos_media_mvi/utils.dart/import_source_type.dart';
-import 'package:cosmos_media_mvi/utils.dart/resource_location_config.dart';
+import 'package:cosmos_media_mvi/src/core/enums/media_type.dart';
+import 'package:cosmos_media_mvi/src/core/enums/import_source_type.dart';
+import 'package:cosmos_media_mvi/src/data_ingestion_layer/dtos/resource_location_config.dart';
 
 /// A DTO encapsulating all necessary configuration details for a media import operation.
 ///
