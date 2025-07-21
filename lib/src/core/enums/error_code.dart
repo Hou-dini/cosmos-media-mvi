@@ -5,6 +5,7 @@ enum ErrorCode {
 
   // Provider errors
   dilProviderSetupError,
+  dilProviderWatchUnsupported,
   dilProviderInvalidConfigError,
   dilProviderAccessDeniedError,
   dilProviderPathMissingError,
@@ -15,8 +16,10 @@ enum ErrorCode {
   // Format Detector errors
   dilFormatDetectionFailed,
   dilFormatDetectionUnsupported,
+  dilFormatDetectionUpstreamError,
 
   // Interpreter errors
+  dilInterpretationSetupError,
   dilInterpretationStrategyParsingError,
   dilInterpretationStrategyInvalidData,
   dilInterpretationStrategyUnsupportedFormat,
@@ -29,6 +32,7 @@ enum ErrorCode {
   dilTransformationStrategyUnsupportedFormat,
   dilTransformationMappingError,
   dilTransformationUpstreamError,
+  dilTransformationSetupError,
 
   // Factory errors
   dilProviderFactoryCreationError,
@@ -54,7 +58,7 @@ enum ErrorCode {
   dilCoordinatorInvalidConfigError,
   dilCoordinatorUnknownError,
 
-   // InterpretationStrategy errors
+   // RetrievalStrategy errors
   dilRetrievalStrategyAccessDeniedError,
   dilRetrievalStrategyPathMissingError,
   dilRetrievalStrategyAuthenticationError,
@@ -64,6 +68,6 @@ enum ErrorCode {
   serviceImportSetupError,
   serviceImportPostProcessingError,
   serviceImportInvalidConfigError,
-  serviceImportUnknownError,           
+  serviceImportUnknownError,               
 }
 

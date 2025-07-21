@@ -7,6 +7,7 @@ enum ErrorContextKey {
   dataFormat,
   mediaType,
   resourceLocation, 
-  importSourceType,
+  importSourceType, 
+  ownerID,
   // ... other context keys
 }
