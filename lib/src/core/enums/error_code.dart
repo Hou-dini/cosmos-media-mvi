@@ -8,6 +8,7 @@ enum ErrorCode {
   dilProviderPathMissingError,
   dilProviderConnectionError,
   dilProviderUnknownError,
+  dilProviderUnsupportedSourceType,
 
   // Format Detector errors
   dilFormatDetectionFailed,
@@ -29,10 +30,20 @@ enum ErrorCode {
 
   // Factory errors
   dilProviderFactoryCreationError,
+  dilProviderFactoryUnsupportedSourceType,
   dilFormatDetectorFactoryCreationError,
   dilInterpretationStrategyFactoryCreationError,
+  dilInterpretationStrategyFactoryUnsupportedTypeCombination, 
+  dilRetrievalStrategyUnsupportedTypeCombination, 
+  dilRetrievalStrategyFactoryCreationError,
   dilTransformationStrategyFactoryCreationError,
-  dilDataCoordinatorFactoryCreationError,
+  dilTransformationStrategyFactoryUnsupportedTypeCombination,
+  dilCoordinatorFactoryCreationError,
+  dilCoordinatorFactoryUnsupportedSourceType,
+  dilInterpreterFactoryCreationError,
+  dilInterpreterFactoryUnsupportedSourceType,
+  dilTransformerFactoryCreationError,
+  dilTransformerFactoryUnsupportedSourceType,
 
   // Coordinator errors
   dilCoordinatorSetupError,
@@ -51,6 +62,6 @@ enum ErrorCode {
   serviceImportSetupError,
   serviceImportPostProcessingError,
   serviceImportInvalidConfigError,
-  serviceImportUnknownError,
+  serviceImportUnknownError,         
 }
 

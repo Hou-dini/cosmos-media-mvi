@@ -3,6 +3,8 @@ import 'package:cosmos_media_mvi/src/data_ingestion_layer/factories/factories.da
 import 'package:cosmos_media_mvi/src/data_ingestion_layer/interfaces/interfaces.dart';
 import 'package:get_it/get_it.dart';
 
+import '../data_ingestion_layer/implementations/factories_impl/factory_implementations.dart';
+
 // Create a GetIt instance
 final GetIt getIt = GetIt.instance;
 
