@@ -4,6 +4,8 @@ enum ErrorCode {
   dilUnknownError,
 
   // Provider errors
+  dilProviderSetupError,
+  dilProviderInvalidConfigError,
   dilProviderAccessDeniedError,
   dilProviderPathMissingError,
   dilProviderConnectionError,
@@ -62,6 +64,6 @@ enum ErrorCode {
   serviceImportSetupError,
   serviceImportPostProcessingError,
   serviceImportInvalidConfigError,
-  serviceImportUnknownError,         
+  serviceImportUnknownError,           
 }
 

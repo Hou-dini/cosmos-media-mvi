@@ -1,9 +1,18 @@
-import 'package:cosmos_media_mvi/src/data_ingestion_layer/factories/factories.dart';
-
-import 'package:cosmos_media_mvi/src/data_ingestion_layer/interfaces/interfaces.dart';
 import 'package:get_it/get_it.dart';
 
+import 'package:cosmos_media_mvi/src/data_ingestion_layer/factories/factories.dart';
+import 'package:cosmos_media_mvi/src/data_ingestion_layer/interfaces/interfaces.dart';
 import '../data_ingestion_layer/implementations/factories_impl/factory_implementations.dart';
+import '../data_ingestion_layer/implementations/data_providers/data_providers.dart';
+import '../data_ingestion_layer/implementations/data_format_detectors/data_format_detectors.dart';
+import '../data_ingestion_layer/implementations/data_interpreters/data_interpreters.dart';
+import '../data_ingestion_layer/implementations/data_transformers/data_transformers.dart';
+import '../data_ingestion_layer/implementations/data_coordinators/data_coordinators.dart';
+import '../data_ingestion_layer/implementations/strategies/data_retrieval/data_retrieval_strategies.dart';
+import '../data_ingestion_layer/implementations/strategies/data_interpretation/data_interpretation_strategies.dart';
+import '../data_ingestion_layer/implementations/strategies/data_transformation/data_transformation_strategies.dart';
+
+
 
 // Create a GetIt instance
 final GetIt getIt = GetIt.instance;
