@@ -1,5 +1,5 @@
 name: cosmos_media_mvi
-description: "A media streaming platform"
+description: "A scalable and extensible media ingestion system (DIL MVI)"
 # The following line prevents the package from being accidentally published to
 # pub.dev using `flutter pub publish`. This is preferred for private packages.
 publish_to: 'none' # Remove this line if you wish to publish to pub.dev
@@ -19,7 +19,7 @@ publish_to: 'none' # Remove this line if you wish to publish to pub.dev
 version: 1.0.0+1
 
 environment:
-  sdk: ^3.8.0-278.1.beta
+  sdk: '>=3.0.0 <4.0.0'
 
 # Dependencies specify other packages that your package needs in order to work.
 # To automatically upgrade your package dependencies to the latest versions
@@ -30,6 +30,15 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
+  path: ^1.8.3 # For path manipulation (e.g., joining paths, getting extensions)
+  file: ^7.0.0 # For platform-agnostic file system access (if not using dart:io directly)
+
+  # For Dependency Injection
+  get_it: ^7.6.0 # A simple service locator for Dart and Flutter projects
+
+  # For generating UUIDs (for Media.id)
+  uuid: ^4.3.3 # For generating unique identifiers
+
 
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.
