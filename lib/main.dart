@@ -1,122 +1,178 @@
-import 'package:flutter/material.dart';
+import 'dart:io'; // For Directory, File
+import 'package:path/path.dart' as p; // For path manipulation
 
-void main() {
-  runApp(const MyApp());
-}
+// --- Import DI Setup ---
+import 'package:cosmos_media_mvi/src/dependency_ingestion/di_container.dart';
 
-class MyApp extends StatelessWidget {
-  const MyApp({super.key});
+// --- Import DIL Interfaces and DTOs ---
+import 'package:cosmos_media_mvi/src/data_ingestion_layer/interfaces/interfaces.dart';
+import 'package:cosmos_media_mvi/src/data_ingestion_layer/factories/factories.dart';
+import 'package:cosmos_media_mvi/src/data_ingestion_layer/dtos/dtos.dart';
+import 'package:cosmos_media_mvi/src/core/enums/enums.dart';
+import 'package:cosmos_media_mvi/src/domain_layer/entities/entities.dart'; // To cast Media to Song
+import 'package:cosmos_media_mvi/src/core/exceptions/exceptions.dart'; // To catch AppExceptions
 
-  // This widget is the root of your application.
-  @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Flutter Demo',
-      theme: ThemeData(
-        // This is the theme of your application.
-        //
-        // TRY THIS: Try running your application with "flutter run". You'll see
-        // the application has a purple toolbar. Then, without quitting the app,
-        // try changing the seedColor in the colorScheme below to Colors.green
-        // and then invoke "hot reload" (save your changes or press the "hot
-        // reload" button in a Flutter-supported IDE, or press "r" if you used
-        // the command line to start the app).
-        //
-        // Notice that the counter didn't reset back to zero; the application
-        // state is not lost during the reload. To reset the state, use hot
-        // restart instead.
-        //
-        // This works for code too, not just values: Most code changes can be
-        // tested with just a hot reload.
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
-      ),
-      home: const MyHomePage(title: 'Flutter Demo Home Page'),
-    );
+/// Main function to run the DIL MVI demonstration.
+void main() async {
+  print('--- Cosmos Media DIL MVI Demonstration ---');
+
+  // 1. Setup Dependency Injection
+  print('\n1. Setting up Dependency Injection...');
+  setupDI();
+  print('   DI setup complete.');
+
+  // 2. Create a dummy local folder with MP3 files for testing
+  print('\n2. Preparing dummy data...');
+  final String testDirPath = p.join(Directory.current.path, 'test_media');
+  final Directory testDir = Directory(testDirPath);
+
+  if (testDir.existsSync()) {
+    testDir.deleteSync(recursive: true); // Clean up previous test data
+    print('   Cleaned up existing test_media directory.');
   }
-}
+  testDir.createSync(recursive: true); // Create a fresh directory
 
-class MyHomePage extends StatefulWidget {
-  const MyHomePage({super.key, required this.title});
+  // Create some dummy MP3 files
+  final List<String> dummySongs = [
+    'Artist One - Song Title A.mp3',
+    'Artist Two - Another Song.mp3',
+    'Artist Three - My Awesome Podcast Episode.mp3', // Will be interpreted as song
+    'Invalid File.txt', // Will cause a format detection error
+    'Artist Four - Short Track.mp3',
+  ];
 
-  // This widget is the home page of your application. It is stateful, meaning
-  // that it has a State object (defined below) that contains fields that affect
-  // how it looks.
+  for (final songName in dummySongs) {
+    final file = File(p.join(testDirPath, songName));
+    file.writeAsStringSync(
+        'This is dummy content for $songName'); // Actual content doesn't matter for MVI
+    print('   Created dummy file: ${file.path}');
+  }
+  print('   Dummy data prepared in: $testDirPath');
 
-  // This class is the configuration for the state. It holds the values (in this
-  // case the title) provided by the parent (in this case the App widget) and
-  // used by the build method of the State. Fields in a Widget subclass are
-  // always marked "final".
+  // 3. Get DataCoordinator instance from DI
+  print('\n3. Obtaining DataCoordinator...');
+  final DataCoordinatorFactory coordinatorFactory =
+      getIt<DataCoordinatorFactory>();
+  final DataCoordinator coordinator =
+      coordinatorFactory.createCoordinator(ImportSourceType.localFolder);
+  print('   DataCoordinator instance obtained: ${coordinator.runtimeType}');
 
-  final String title;
+  // 4. Set up listeners for processed data and status updates
+  print('\n4. Setting up stream listeners...');
+  final List<Song> processedSongs = [];
+  final List<AppException> encounteredErrors = [];
 
-  @override
-  State<MyHomePage> createState() => _MyHomePageState();
-}
+  // Listen to processed data (Media objects)
+  final processedDataSubscription = coordinator.getProcessedData().listen(
+    (media) {
+      if (media is Song) {
+        processedSongs.add(media);
+        print(
+            '   ✅ Processed Song: "${media.title}" by "${media.artist}" (ID: ${media.id})');
+      } else {
+        print('   ✅ Processed Unknown Media Type: ${media.runtimeType}');
+      }
+    },
+    onError: (error) {
+      if (error is AppException) {
+        encounteredErrors.add(error);
+        print(
+            '   ❌ Pipeline Error: ${error.message} [${error.errorCode.name}]');
+        if (error.context.isNotEmpty) {
+          print('      Context: ${error.context}');
+        }
+      } else {
+        print('   ❌ Unexpected Error in Processed Data Stream: $error');
+      }
+    },
+    onDone: () {
+      print('   Processed Data Stream: DONE');
+    },
+  );
+  getIt.registerSingleton(processedDataSubscription,
+      instanceName: 'processedDataSubscription'); // Keep reference for dispose
 
-class _MyHomePageState extends State<MyHomePage> {
-  int _counter = 0;
+  // Listen to status updates
+  final statusUpdatesSubscription = coordinator.getStatusUpdates().listen(
+    (event) {
+      print('   📊 Status Update: [${event.type.name}] ${event.message}');
+      if (event.errorSummary != null) {
+        print('      Error Summary: ${event.errorSummary}');
+      }
+    },
+    onError: (error) {
+      print('   ⚠️ Status Stream Error: $error');
+    },
+    onDone: () {
+      print('   Status Updates Stream: DONE');
+    },
+  );
+  getIt.registerSingleton(statusUpdatesSubscription,
+      instanceName: 'statusUpdatesSubscription'); // Keep reference for dispose
 
-  void _incrementCounter() {
-    setState(() {
-      // This call to setState tells the Flutter framework that something has
-      // changed in this State, which causes it to rerun the build method below
-      // so that the display can reflect the updated values. If we changed
-      // _counter without calling setState(), then the build method would not be
-      // called again, and so nothing would appear to happen.
-      _counter++;
-    });
+  print('   Listeners set up.');
+
+  // 5. Initiate the coordination process
+  print('\n5. Initiating DIL coordination...');
+  final String ownerID = 'test_user_123'; // Dummy owner ID
+  final ImportSourceConfig config = ImportSourceConfig(
+    sourceType: ImportSourceType.localFolder,
+    resourceLocation: ResourceLocationConfig(pathOrUrl: testDirPath),
+    mediaType: MediaType.song, // We are expecting songs from this source
+  );
+
+  try {
+    coordinator.initiateCoordination(config, ownerID);
+    print('   DIL coordination initiated. Waiting for pipeline to complete...');
+  } on AppException catch (e) {
+    print(
+        '   🚨 CRITICAL DIL SETUP FAILURE: ${e.message} [${e.errorCode.name}]');
+    if (e.stackTrace != null) {
+      print('      Stack Trace:\n${e.stackTrace}');
+    }
+    encounteredErrors.add(e); // Add critical setup errors to the list
+  } catch (e, st) {
+    print('   🚨 UNEXPECTED CRITICAL FAILURE: $e');
+    print('      Stack Trace:\n$st');
+    encounteredErrors.add(AppException(
+      errorCode: ErrorCode.dilUnknownError,
+      message: 'Unexpected error during DIL initiation: $e',
+      stackTrace: st.toString(),
+    ));
   }
 
-  @override
-  Widget build(BuildContext context) {
-    // This method is rerun every time setState is called, for instance as done
-    // by the _incrementCounter method above.
-    //
-    // The Flutter framework has been optimized to make rerunning build methods
-    // fast, so that you can just rebuild anything that needs updating rather
-    // than having to individually change instances of widgets.
-    return Scaffold(
-      appBar: AppBar(
-        // TRY THIS: Try changing the color here to a specific color (to
-        // Colors.amber, perhaps?) and trigger a hot reload to see the AppBar
-        // change color while the other colors stay the same.
-        backgroundColor: Theme.of(context).colorScheme.inversePrimary,
-        // Here we take the value from the MyHomePage object that was created by
-        // the App.build method, and use it to set our appbar title.
-        title: Text(widget.title),
-      ),
-      body: Center(
-        // Center is a layout widget. It takes a single child and positions it
-        // in the middle of the parent.
-        child: Column(
-          // Column is also a layout widget. It takes a list of children and
-          // arranges them vertically. By default, it sizes itself to fit its
-          // children horizontally, and tries to be as tall as its parent.
-          //
-          // Column has various properties to control how it sizes itself and
-          // how it positions its children. Here we use mainAxisAlignment to
-          // center the children vertically; the main axis here is the vertical
-          // axis because Columns are vertical (the cross axis would be
-          // horizontal).
-          //
-          // TRY THIS: Invoke "debug painting" (choose the "Toggle Debug Paint"
-          // action in the IDE, or press "p" in the console), to see the
-          // wireframe for each widget.
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            const Text('You have pushed the button this many times:'),
-            Text(
-              '$_counter',
-              style: Theme.of(context).textTheme.headlineMedium,
-            ),
-          ],
-        ),
-      ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: _incrementCounter,
-        tooltip: 'Increment',
-        child: const Icon(Icons.add),
-      ), // This trailing comma makes auto-formatting nicer for build methods.
-    );
+  // Allow some time for the asynchronous pipeline to complete
+  // In a real app, you'd await a Future that completes when the coordinator is done.
+  // For this simple demo, a delay is sufficient.
+  await Future.delayed(Duration(seconds: 5));
+
+  print('\n--- DIL MVI Demonstration Summary ---');
+  print('Total Songs Processed Successfully: ${processedSongs.length}');
+  print('Total Errors Encountered in Pipeline: ${encounteredErrors.length}');
+
+  if (encounteredErrors.isNotEmpty) {
+    print('\nDetails of Errors:');
+    for (int i = 0; i < encounteredErrors.length; i++) {
+      print('  Error ${i + 1}:');
+      print('    Code: ${encounteredErrors[i].errorCode.name}');
+      print('    Message: ${encounteredErrors[i].message}');
+      if (encounteredErrors[i].context.isNotEmpty) {
+        print('    Context: ${encounteredErrors[i].context}');
+      }
+      // if (encounteredErrors[i].stackTrace != null) {
+      //   print('    Stack Trace:\n${encounteredErrors[i].stackTrace}');
+      // }
+    }
   }
+
+  // Clean up resources
+  print('\n6. Disposing resources...');
+  coordinator.dispose();
+  // Also dispose GetIt if it's no longer needed (e.g., in tests)
+  // For a long-running app, you might not dispose GetIt until app shutdown.
+  // For this demo, it's good practice.
+  await getIt.reset(); // Resets all registered singletons and factories.
+  print('   Resources disposed.');
+
+  print('\n--- Demonstration Complete ---');
 }
