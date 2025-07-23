@@ -32,6 +32,10 @@ The DIL is built with a strong emphasis on **Clean Architecture** and **Domain-D
 
 * **Dependency Injection (GetIt):** A lightweight service locator (`get_it` package) is used to manage component dependencies, promoting testability and modularity.
 
+## Architectural Diagram
+
+Here is a visual representation of the Data Ingestion Layer pipeline. These diagrams illustrate the main components relations, flow of data through the main components, and their interactions, highlighting the modular and stream-based nature of the design.
+
 ## Getting Started
 
 Follow these steps to set up the project and run the demonstration on your local machine.
@@ -98,7 +102,6 @@ Open `lib/src/data_ingestion_layer/implementations/strategies/data_retrieval/loc
               formatHint: DataFormat.mp3.name, // Provide a hint
             );
           }
-
 ```
 
 **Comment out the `if` condition so it looks like this:**
@@ -115,7 +118,6 @@ Open `lib/src/data_ingestion_layer/implementations/strategies/data_retrieval/loc
               formatHint: DataFormat.mp3.name, // Provide a hint
             );
         // } // COMMENT OUT THIS LINE
-
 ```
 
 **Step 2.2: Run the Demonstration Again**
@@ -144,5 +146,9 @@ After testing the error path, **remember to revert the change** in `lib/src/data
 ## Contributing
 
 This project is an MVI and is open for future expansion. Feel free to explore, provide feedback, or suggest improvements.
+
+## License
+
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
 
 **Developed by Elikplim Kudowor with collaborative support from Gemini.**
