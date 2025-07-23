@@ -36,6 +36,12 @@ The DIL is built with a strong emphasis on **Clean Architecture** and **Domain-D
 
 Here is a visual representation of the Data Ingestion Layer pipeline. These diagrams illustrate the main components relations, flow of data through the main components, and their interactions, highlighting the modular and stream-based nature of the design.
 
+![Cosmos Media DIL Architecture diagram](assets/dil_architecture_diagram.png)
+> 📊 *Visual representation of the Cosmos Media data ingestion pipeline architecture*
+
+![Cosmos Media DIL Sequence diagram](assets/dil_sequence_diagram.png)
+> 📊 *Visual representation of the Cosmos Media data ingestion pipeline components interactions*
+
 ## Getting Started
 
 Follow these steps to set up the project and run the demonstration on your local machine.
@@ -151,4 +157,4 @@ This project is an MVI and is open for future expansion. Feel free to explore, p
 
 This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
 
-**Developed by Elikplim Kudowor with collaborative support from Gemini.**
+**Designed and Developed by Elikplim Kudowor with collaborative support from Gemini.**
