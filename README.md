@@ -159,4 +159,4 @@ This project is an MVI and is open for future expansion. Feel free to explore, p
 
 This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
 
-**Designed and Developed by Elikplim Kudowor**
+**Designed and Developed by Elikplim Kudowor.**
