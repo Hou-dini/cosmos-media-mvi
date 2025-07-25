@@ -24,6 +24,8 @@ The DIL is built with a strong emphasis on **Clean Architecture** and **Domain-D
 
     * **Data Transformation:** Mapping interpreted metadata into rich domain entities (e.g., `Song` objects).
 
+* **Factory Pattern:** Dedicated factory classes are used to encapsulate the creation logic of DIL components and strategies, promoting loose coupling and making it easy to introduce new implementations without modifying client code.
+
 * **Mediator Pattern:** The `DataCoordinator` acts as a central orchestrator, managing complex interactions between DIL components (Providers, Detectors, Interpreters, Transformers) and reducing direct dependencies between them.
 
 * **Reactive Programming (Dart Streams):** Data flows asynchronously and continuously through the pipeline using Dart's `Stream` API, ensuring non-blocking operations and efficient processing.
@@ -157,4 +159,4 @@ This project is an MVI and is open for future expansion. Feel free to explore, p
 
 This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
 
-**Designed and Developed by Elikplim Kudowor with collaborative support from Gemini.**
+**Designed and Developed by Elikplim Kudowor**
